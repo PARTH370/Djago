@@ -35,17 +35,17 @@ class dashboard_home(LoginRequiredMixin, CreateView):
     form_class = total_records_form
     def get_form(self, form_class=total_records_form):
         form = super(dashboard_home, self).get_form(form_class)
-        form.fields['total_industry'].initial = Job_industries.objects.all().count()
+        form.fields['total_industry'].initial = Job_industries.objects.filter(status=1).count()
         form.fields['total_user'].initial = User.objects.all().count()
         return form
 
 @login_required
 def create_job_industries(request):
     form = job_industry_form()
-    available_industries=Job_industries.objects.all().values_list('name','id')
+    available_industries=Job_industries.objects.filter(status=1).values_list('name','id')
     data=[]
     for i in range(len(available_industries)):
-        data.append([available_industries[i][1],str(available_industries[i][0]),'<a class="btn btn-info btn-sm" values=('+str(available_industries[i])+') onclick="edit('+str(available_industries[i])+')">' + 'Edit' + '</a>','<a class="btn btn-info btn-sm"  onclick="delete('+str(available_industries[i][1])+')">' + 'Delete' + '</a>'])
+        data.append([available_industries[i][1],str(available_industries[i][0]),'<a class="btn btn-info btn-sm" values=('+str(available_industries[i])+') onclick="edit('+str(available_industries[i][1])+')">' + 'Edit' + '</a>','<a class="btn btn-info btn-sm"  onclick="delete_industry('+str(available_industries[i][1])+')">' + 'Delete' + '</a>'])
     return render(request, 'public/new.html',{'form':form,'available_industries':data})
 
 @login_required
@@ -81,6 +81,20 @@ def update_job_industries(request):
         find_data=Job_industries.objects.filter(id=id)
         add_industry_objet=find_data.update(name=request.GET.get("name"),updated_on=datetime.now())
         data['added']=True
+    return JsonResponse(data)
+
+@login_required
+def delete_industry(request):
+    id=request.POST.get("id")
+    print("hiiiii")
+    data={'is_taken':False}
+
+    find_data=Job_industries.objects.filter(id=id)
+    print(id,find_data.exists())
+    if find_data.exists():
+        print("Hiiiiii")
+        add_industry_objet=find_data.update(status=0,updated_on=datetime.now())
+        data['is_taken']=True
     return JsonResponse(data)
 
 @login_required
