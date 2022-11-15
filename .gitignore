@@ -2,3 +2,10 @@ env
 env/
 /env
 .env
+.venv
+.vnev
+/venv
+/vnev
+
+__pycache__/
+.settings.py
