@@ -45,7 +45,7 @@ def create_job_industries(request):
     available_industries=Job_industries.objects.all().values_list('name','id')
     data=[]
     for i in range(len(available_industries)):
-        data.append([available_industries[i][1],str(available_industries[i][0]),'<a class="btn btn-info btn-sm" values=('+str(available_industries[i])+') onclick="edit('+str(available_industries[i])+')">' + 'Edit' + '</a>','<a class="btn btn-info btn-sm"  onclick="delete('+str(available_industries[i][1])+')">' + 'Delete' + '</a>'])
+        data.append([i,str(available_industries[i][0]),'<a class="btn btn-info btn-sm" values=('+str(available_industries[i])+') onclick="edit('+str(available_industries[i])+')">' + 'Edit' + '</a>','<a class="btn btn-info btn-sm"  onclick="delete('+str(available_industries[i][1])+')">' + 'Delete' + '</a>'])
     return render(request, 'public/new.html',{'form':form,'available_industries':data})
 
 @login_required
