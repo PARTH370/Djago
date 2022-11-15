@@ -1,0 +1,108 @@
+{% extends "public/index.html" %}
+{% load mathfilters %}
+{% load widget_tweaks %}
+{% load static %}
+{% block extrahead %}
+{{ form.media}}
+{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'public/table.css' %}">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.13.1/datatables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.13.1/datatables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" defer></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<!-- Add  Industry -->
+<div class="overview-boxes">
+	<div class="title">Add Industry</div>
+</div>
+<div class="box box-default opensearchitem" id="searchcontent">
+	<div class="form-group">
+		<label>Industry Name</label>
+		<br>
+		<input type="text" name="industry_name" placeholder="Industries" maxlength="100" id="id_industry_name">
+		<br>
+		<input type="button" class="btn btn-info btn-sm" value="SUBMIT" style="position: relative;top: 6px;width: 65px"
+			onclick="add_industry()">
+	</div>
+</div>
+
+<!-- Get Industry DataTable -->
+<table id="tna_datatable" class="table-hover" style="height:10px;width:100%">
+	<thead>
+		<tr>
+
+			<th class="tbhead vsm c">ID</th>
+			<th class="tbhead vsm c">job_industry</th>
+			<th class="edit">Edit</th>
+			<th class="update">Delete</th>
+
+		</tr>
+	</thead>
+</table>
+
+<script>
+	function make_alert(classes, msg) {
+		bootbox.alert({
+			message: msg,
+		});
+	}
+	document.getElementById('menu').innerHTML = '<span class="dashboard">Job Industry</span>'
+	document.getElementById('2').className = "active"
+	/* Add Industry Function Take Industry Name is a request body return added equal (True or False )*/
+	function add_industry() {
+		if ($('#id_industry_name').val()) {
+
+			$.ajax({
+				url: "{% url 'add_industry' %}",
+				data: {
+					'industry_name': $('#id_industry_name').val()
+
+				},
+				dataType: 'json',
+				success: function (data) {
+					console.log(data)
+					if (data.added != true) {
+
+						make_alert("success", "Industry already exists.");
+					}
+					else {
+
+						make_alert("success", "Industry added successfully.!");
+
+						window.location.reload();
+					}
+				},
+				error: function (jqXHR, status, err) {
+
+					make_alert('danger', "Sorry, Something went wrong.");
+				},
+			});
+		}
+		else {
+			make_alert("success", "Please enter the Industry");
+		}
+	}
+	/* Get Added Industry Datatable */
+	$(document).ready(function () {
+		var table = $('#tna_datatable').DataTable({
+			data: {{ available_industries| safe}},
+
+		scrollY: "375px",
+		scrollX: true,
+		scrollCollapse: true,
+		paging: true,
+		lengthMenu: [
+		[1500, 1000, 500, 250],
+		['1500 rows', '1000 rows', '500 rows', '250 rows']
+	]
+			
+			
+		});
+		
+	});
+</script>
+
+<link rel="stylesheet" href="{% static 'public/newtable.css' %}">
+
+{% endblock %}

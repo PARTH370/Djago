@@ -1,0 +1,85 @@
+{% extends "user/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block content %}
+<section class="content">
+	<div class="midbox">
+					<div class="bgbox" style="background-image:url({% static 'fundtransaction/asset/img/profile_bg.png' %});"></div>
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="profileimg">  
+            <center><img class="img-circle account-img pro_img"  src="{{ user.profile.image.url }}"></center>
+            <i class="fa fa-camera cameraicon" aria-hidden="true"></i>
+            <fieldset class="uploadimg">
+                  {{ p_form.image }}
+            </fieldset>
+          </div> 
+          <div class="nav-tabs-custom" id="tableinput" style="box-shadow:none; margin-top:25px;">
+            <div class="table-responsive">  
+          <table class="table" ><!-----id="example1"------>
+            <tbody>
+            <tr>
+            <td class="profilename" >{{ user.first_name }} {{ user.last_name }}</td>
+            
+            <td class="noedit" style="vertical-align:middle; border: transparent;">
+            <center><a class="add" title="Update" data-toggle="tooltip"><i class="material-icons" style="font-size:22px !important;">check_circle_outline</i></a></center>
+            <center><a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></center>
+            </td>
+            
+            </tr>
+            
+            <tr>
+            <td class="profileid" ><span><i class="fa fa-envelope env" aria-hidden="true"></i></span> {{ user.email }}</td>
+            
+            <td class="noedit" style="vertical-align:middle; border: transparent;">
+            <center><a class="add" title="Update" data-toggle="tooltip"><i class="material-icons" style="font-size:22px !important;">check_circle_outline</i></a></center>
+            <center><a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></center>
+            </td>
+            
+            </tr>
+            </tbody>
+            </table>        
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+          <center><button class="btn btn-outline-info" type="submit">Update</button></center>
+      </div>
+  </div>        
+</form>
+</div>
+</section>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>
+$('input[type="file"]').each(function(){
+  // Refs
+  var $file = $(this),
+      $label = $file.next('label'),
+      $labelText = $label.find('span'),
+      labelDefault = $labelText.text();
+
+  // When a new file is selected
+  $file.on('change', function(event){
+    var fileName = $file.val().split( '\\' ).pop(),
+        tmppath = URL.createObjectURL(event.target.files[0]);
+    //Check successfully selection
+    if( fileName ){
+      $label
+        .addClass('file-ok')
+        .css('background-image', 'url(' + tmppath + ')');
+      $labelText.text(fileName);
+    }else{
+      $label.removeClass('file-ok');
+      $labelText.text(labelDefault);
+    }
+  });
+
+// End loop of file input elements
+});
+</script>
+{% endblock content %}

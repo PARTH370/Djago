@@ -1,0 +1,1 @@
+if you fase issue while installing mysqlclient try pip install --only-binary :all: mysqlclient
