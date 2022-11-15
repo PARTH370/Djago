@@ -208,13 +208,31 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+import platform,json
+def get_file_path():
+    """
+    This function returns the path as per the operating system
+    Parameters: None
+    """
+    system_name = platform.system()
+    if system_name == "Windows":
+        file_path = r"config_file.json"
+    if system_name == "Linux":
+        file_path = "/etc/ifa_robo_api_config.json"
+    return file_path
+
+
+with open(get_file_path()) as config_file:
+    config = json.load(config_file)
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'testdatabase',
-        'USER': 'root',
-        'PASSWORD': 'Admin@1234',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': config["NAME"],
+        'USER': config["USER"],
+        'PASSWORD': config["PASSWORD"],
+        'HOST': config["HOST"],
+        'PORT': config["PORT"],
     }
 } 

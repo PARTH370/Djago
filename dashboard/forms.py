@@ -14,10 +14,10 @@ class job_industry_form(forms.ModelForm):
         fields = ["name"]
 
 class job_profile_form(forms.ModelForm):
-    companey_name= forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Industries"}), max_length=100, required=False)
-    job_Title= forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Softwere Developer"}), max_length=100, required=False)
-    job_type= forms.CharField(widget=forms.TextInput(attrs={'placeholder':"SDE"}), max_length=1000, required=False)
-    job_Category= forms.CharField(widget=forms.TextInput(attrs={'placeholder':"It"}), max_length=1000, required=False)
+    companey_name= forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Industries"}), max_length=100, required=True)
+    job_Title= forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Softwere Developer"}), max_length=100, required=True)
+    job_type= forms.CharField(widget=forms.TextInput(attrs={'placeholder':"SDE"}), max_length=1000, required=True)
+    job_Category= forms.CharField(widget=forms.TextInput(attrs={'placeholder':"It"}), max_length=1000, required=True)
     job_skill= forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Python"}), max_length=1000, required=False)
     gender= forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Any"}), max_length=10, required=True)
     job_exp_date= forms.DateField( widget=DatePickerInput(format='%Y-%m-%d'),required=True)

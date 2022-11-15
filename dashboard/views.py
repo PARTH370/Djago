@@ -100,7 +100,13 @@ def delete_industry(request):
 @login_required
 def create_job_profile(request):
     form = job_profile_form()
-    return render(request, 'public/job_profile.html',{'form':form})
+    data=[]
+    available_industries=job_profiles.objects.filter(status=1).values_list('id','companey_name','job_Title','job_Category','job_exp_date','updated_by_user_id')
+    print(available_industries)
+    for i in range(len(available_industries)):
+        data.append([available_industries[i][0],str(available_industries[i][1]),str(available_industries[i][2]),str(available_industries[i][3]),str(available_industries[i][4]),str(available_industries[i][5]),'<a class="btn btn-info btn-sm" values=('+str(available_industries[i])+') onclick="edit('+str(available_industries[i][1])+')">' + 'Edit' + '</a>','<a class="btn btn-info btn-sm"  onclick="delete_industry('+str(available_industries[i][1])+')">' + 'Delete' + '</a>'])
+    print(data)
+    return render(request, 'public/job_profile.html',{'form':form,'available_industries':data})
 
 @login_required
 def get_job_name(request):
@@ -133,7 +139,7 @@ def add_job_profile(request):
     
         
    
-    add_industry_obj=job_profiles(companey_name=industry,job_Title=job_Title,job_Category=job_Category,job_skill=job_skill,gender=gender,job_exp_date=job_exp_date,salary_package=salary,country=country,state=state,city=city,career_level=career_level,degree_level=degree_level,job_experience=job_experience,description=description,remote_work=remote_work,updated_by_user_id=request.user.id,created_on=datetime.now(),updated_on=datetime.now())
+    add_industry_obj=job_profiles(companey_name=industry,status=1,job_Title=job_Title,job_Category=job_Category,job_skill=job_skill,gender=gender,job_exp_date=job_exp_date,salary_package=salary,country=country,state=state,city=city,career_level=career_level,degree_level=degree_level,job_experience=job_experience,description=description,remote_work=remote_work,updated_by_user_id=request.user.id,created_on=datetime.now(),updated_on=datetime.now())
     add_industry_obj.save()
     data['added']=True  
     return JsonResponse(data)
