@@ -147,39 +147,7 @@
 			}
 			});
 		}
-	{% comment %} function delete_industry(data){
-
-		// if($("#id_share_class_name").val() && $("#share_class_inception_date").val() && $("#id_share_class_type").val() && $("#id_share_class_cusip").val() && $("#id_share_class_symbol").val() && $("#id_share_class_lot_number").val()){
-			console.log(data);
-			
-			
-			
-			
-
-				$.ajax({
-					url: "{% url 'delete_job_profile' %}",
-					
-					dataType: 'json',
-					success: function (data) {
-						console.log(data)
-						if (data.added != true) {
 	
-							make_alert("success", "Industry already exists.");
-						}
-						else {
-	
-							make_alert("success", "Industry added successfully.!");
-	
-							window.location.reload();
-						}
-					},
-					error: function (jqXHR, status, err) {
-	
-						make_alert('danger', "Sorry, Something went wrong.");
-					},
-				});
-			} {% endcomment %}
-			
 		
 	/* Get Added Industry Datatable */
 	$(document).ready(function () {

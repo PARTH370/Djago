@@ -45,7 +45,7 @@ def create_job_industries(request):
     available_industries=Job_industries.objects.filter(status=1).values_list('name','id')
     data=[]
     for i in range(len(available_industries)):
-        data.append([i,str(available_industries[i][0]),'<a class="btn btn-info btn-sm" values=('+str(available_industries[i])+') onclick="edit('+str(available_industries[i])+')">' + 'Edit' + '</a>','<a class="btn btn-info btn-sm"  onclick="delete('+str(available_industries[i][1])+')">' + 'Delete' + '</a>'])
+        data.append([i,str(available_industries[i][0]),'<a class="btn btn-info btn-sm" values=('+str(available_industries[i])+') onclick="edit('+str(available_industries[i][1])+')">' + 'Edit' + '</a>','<a class="btn btn-info btn-sm"  onclick="delete_industry('+str(available_industries[i][1])+')">' + 'Delete' + '</a>'])
     return render(request, 'public/new.html',{'form':form,'available_industries':data})
 
 @login_required
@@ -86,13 +86,11 @@ def update_job_industries(request):
 @login_required
 def delete_industry(request):
     id=request.POST.get("id")
-    print("hiiiii")
     data={'is_taken':False}
 
     find_data=Job_industries.objects.filter(id=id)
     print(id,find_data.exists())
     if find_data.exists():
-        print("Hiiiiii")
         add_industry_objet=find_data.update(status=0,updated_on=datetime.now())
         data['is_taken']=True
     return JsonResponse(data)
