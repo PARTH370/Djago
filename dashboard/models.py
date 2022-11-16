@@ -44,3 +44,4 @@ class job_profiles(models.Model):
      mobile_no=models.CharField(null=True,max_length=10)
      created_on = models.DateTimeField(null=True, default=timezone.now)
      updated_on= models.DateTimeField(null=True, default=timezone.now)
+
