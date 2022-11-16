@@ -25,7 +25,8 @@
     document.getElementById('menu').innerHTML = '<span class="dashboard">Dashboard</span>'
     document.getElementById('1').className = "active"
     document.getElementById('total_industry').innerHTML = '<a href="{% url "job_industry" %}"><div class="box-topic">Total Industry </div> <div class="number">' + $('#id_total_industry').val() + '</div></a>'
-    document.getElementById('total_user').innerHTML = '<a href="{% url "job_industry" %}"> <div class="box-topic">Total User </div> <div class="number">' + $('#id_total_user').val() + '</div></a>'
+
+    document.getElementById('total_user').innerHTML = '<a href="{% url "show_all_users" %}"> <div class="box-topic">Total User </div> <div class="number">' + $('#id_total_user').val() + '</div></a>'
 </script>
 
 {% endblock %}

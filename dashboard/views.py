@@ -36,7 +36,7 @@ class dashboard_home(LoginRequiredMixin, CreateView):
     def get_form(self, form_class=total_records_form):
         form = super(dashboard_home, self).get_form(form_class)
         form.fields['total_industry'].initial = Job_industries.objects.filter(status=1).count()
-        form.fields['total_user'].initial = User.objects.all().count()
+        form.fields['total_user'].initial = User.objects.filter(is_active=1).count()
         return form
 
 @login_required
@@ -158,5 +158,22 @@ def add_job_profile(request):
 
 
 
+@login_required
+def show_user(request):
+    available_users=User.objects.filter(is_active=1).values_list('id','username','first_name','last_name','email','date_joined')
+    data=[]
+    for i in range(len(available_users)):
+        data.append([available_users[i][0],str(available_users[i][1]),str(available_users[i][2]),str(available_users[i][3]),str(available_users[i][4]),str(available_users[i][5]),'<a class="btn btn-info btn-sm" onclick="edit('+str(available_users[i][0])+')">' + 'Edit' + '</a>','<a class="btn btn-info btn-sm"  onclick="delete_user('+str(available_users[i][0])+')">' + 'Delete' + '</a>'])
+    return render(request, 'public/user.html',{'available_users':data})
 
+@login_required
+def delete_user(request):
+    id=request.POST.get("id")
+    print(id,"+++++++++++++++++++++++")
+    data={'is_taken':False}
+    find_user=User.objects.filter(id=id)
+    if find_user.exists():
+        delete_user=find_user.update(is_active=0)
+        data['is_taken']=True
+    return JsonResponse(data)
 

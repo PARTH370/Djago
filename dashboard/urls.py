@@ -22,4 +22,6 @@ path('get-job-name',FT_view.get_job_name,name="get_job_name"),
     path("create-industry", FT_view.add_industry, name="add_industry"),
     path("delete-industry", FT_view.delete_industry, name="delete_industry"),
     path("delete-job-profile", FT_view.delete_job_profile, name="delete_job_profile"),
+    path("user-details", FT_view.show_user, name="show_all_users"),
+    path("delete-user", FT_view.delete_user, name="delete_user")
 ]

@@ -1,0 +1,117 @@
+{% extends "public/index.html" %}
+{% load mathfilters %}
+{% load widget_tweaks %}
+{% load static %}
+{% block extrahead %}
+{{ form.media}}
+{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'public/table.css' %}">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.13.1/datatables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.13.1/datatables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" defer></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+
+<!-- Get User DataTable -->
+
+<table id="tna_datatable" class="table-hover" style="height:10px;width:100%">
+	<thead>
+		<tr>
+			<th class="tbhead vsm c">ID</th>
+			<th class="tbhead vsm c">User Name</th>
+            <th class="tbhead vsm c">First Name</th>
+            <th class="tbhead vsm c">Last Name</th>
+            <th class="tbhead vsm c">Email ID</th>
+            <th class="tbhead vsm c">Date Of Joined</th>
+			<th class="edit">Edit</th>
+			<th class="update">Delete</th>
+
+		</tr>
+	</thead>
+</table>
+
+<script>
+    function make_alert(classes, msg) {
+		bootbox.alert({
+			message: msg,
+		});
+	}
+
+    /* Get User Datatable  Details*/
+	$(document).ready(function () {
+		var table = $('#tna_datatable').DataTable({
+			data: {{ available_users| safe}},
+
+		scrollY: "375px",
+		scrollX: true,
+		scrollCollapse: true,
+		paging: true,
+		lengthMenu: [
+		[1500, 1000, 500, 250],
+		['1500 rows', '1000 rows', '500 rows', '250 rows']
+	]
+			
+			
+		});
+		
+	});
+
+    function delete_user(val){
+		
+        bootbox.confirm({
+            message: "Are you sure to Delete User?",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if(result){
+                    var dict={}
+                    
+                    
+                    dict['id']=val
+                    dict['deleted']=true
+               
+               
+                    dict['csrfmiddlewaretoken'] = "{{ csrf_token }}";
+                
+                    $.ajax({                       
+                        type: 'POST',
+                        url: "{% url 'delete_user' %}",
+                        data : dict,
+                        traditional: true,
+                        cache: false,
+                            success: function (data) {   
+                            if (data.is_taken){
+                          
+                                make_alert("success","User Deleted successfully!"); 
+								window.location.reload()
+                            }
+                            else {
+                             
+                                make_alert("fail","User Deleted successfully!");
+                                window.location.reload()
+                            }
+                            
+                        },
+                        error: function (jqXHR, status, err) {
+                            
+                            make_alert("danger","Sorry, Something went wrong.");
+                        }
+                    });
+                }
+			}
+			});
+		}
+</script>
+
+
+{% endblock %}
+
