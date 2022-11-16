@@ -10,6 +10,6 @@ env/
 __pycache__/
 
 config_file.json
-../migrations/
-../migrations
+**/**/migrations
+**/migrations/
 ../migrations/__init__.py
