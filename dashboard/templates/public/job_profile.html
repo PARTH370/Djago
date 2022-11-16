@@ -12,7 +12,79 @@
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" defer></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
-<style>
+<style type="text/css">
+	
+		.form-style-9{
+			max-width: 1000px;
+			background: #FAFAFA;
+			padding: 30px;
+			margin: 50px auto;
+			box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
+			border-radius: 10px;
+			border: 6px solid #305A72;
+		}
+		.form-style-9 ul{
+			padding:0;
+			margin:0;
+			list-style:none;
+		}
+		.form-style-9 ul li{
+			display: block;
+			margin-bottom: 10px;
+			min-height: 35px;
+		}
+		.form-style-9 ul li  .field-style{
+			box-sizing: border-box; 
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box; 
+			padding: 8px;
+			outline: none;
+			border: 1px solid #B0CFE0;
+			-webkit-transition: all 0.30s ease-in-out;
+			-moz-transition: all 0.30s ease-in-out;
+			-ms-transition: all 0.30s ease-in-out;
+			-o-transition: all 0.30s ease-in-out;
+		
+		}.form-style-9 ul li  .field-style:focus{
+			box-shadow: 0 0 5px #B0CFE0;
+			border:1px solid #B0CFE0;
+		}
+		.form-style-9 ul li .field-split{
+			width: 49%;
+		}
+		.form-style-9 ul li .field-full{
+			width: 100%;
+		}
+		.form-style-9 ul li input.align-left{
+			float:left;
+		}
+		.form-style-9 ul li input.align-right{
+			float:right;
+		}
+		.form-style-9 ul li textarea{
+			width: 100%;
+			height: 100px;
+		}
+		.form-style-9 ul li input[type="button"], 
+		.form-style-9 ul li input[type="submit"] {
+			-moz-box-shadow: inset 0px 1px 0px 0px #3985B1;
+			-webkit-box-shadow: inset 0px 1px 0px 0px #3985B1;
+			box-shadow: inset 0px 1px 0px 0px #3985B1;
+			background-color: #216288;
+			border: 1px solid #17445E;
+			display: inline-block;
+			cursor: pointer;
+			color: #FFFFFF;
+			padding: 8px 18px;
+			text-decoration: none;
+			font: 12px Arial, Helvetica, sans-serif;
+		}
+		.form-style-9 ul li input[type="button"]:hover, 
+		.form-style-9 ul li input[type="submit"]:hover {
+			background: linear-gradient(to bottom, #2D77A2 5%, #337DA8 100%);
+			background-color: #28739E;
+		}
+	
 	* {
 		box-sizing: border-box;
 	  }
@@ -218,7 +290,7 @@
 	  
 		td, th {
 		  padding: 10px;
-		  color: white;
+		  color: #c88ec4;
 		}
 	  
 		tr:nth-child(2n+2) td {
@@ -240,50 +312,58 @@
 	  </main>
 	  
 </div>
-<div class="overview-boxes">
-	<div class="box">
-		<div class="form-group">    
-			<label>Companey Name</label>
-        </br>
-			{{form.companey_name}}
-        </br>
-            <label>Job Title</label>
-        </br> {{form.job_Title}}
-    </br> <label>Job Type</label>
-</br>   {{form.job_type}}
-</br>       <label>Job category</label>
-</br>       {{form.job_Category}}
-</br>       <label>Job skill</label>
-</br>       {{form.job_skill}}
-</br>       <label>Gender</label>
-</br>       {{form.gender}}
-</br>       <label>Job expiry date</label>
-</br>       {{form.job_exp_date}}
-</br>       <label>Salary</label>
-</br> {{form.salary}}
-        </br>       <label>Country</label>
-    </br>       {{form.country}}
-</br>   <label>State</label>
-</br>       {{form.state}}
-</br>       <label>City</label>
-</br>       {{form.city}}
-</br>       <label>Career level</label>
-</br>       {{form.career_level}}
-</br>       <label>Degree level</label>
-</br>       {{form.degree_level}}
-</br>       <label>Job experience</label>
-</br>       {{form.job_experience}}
-</br>       <label>Description</label>
-</br>       {{form.description}}
-</br>       <label>Remote Work</label>
-</br>       {{form.remote_work}}
-
-
-</br> 
-			<input type="button" class="btn btn-info btn-sm" value='SUBMIT' style="position: relative;top: 6px;width: 65px" onclick="add_industry()"/>
-		</div>
-	</div>
-</div>
+<form class="form-style-9">
+	<ul>
+		
+	<li>
+		<input type="text" id="CompaneyName" name="field1" class="field-style field-split align-left" placeholder="Companey Name" />
+		
+		<input type="text" id="JobTitle" name="field2" class="field-style field-split align-right" placeholder="JobTitle" />
+	
+	</li>
+	<li>
+		<input type="text" id="JobType"name="JobType" class="field-style field-split align-left" placeholder="Job Type" />
+		<input type="text" id="Jobcategory" name="field2" class="field-style field-split align-right" placeholder="Job category" />
+	</li>
+	<li>
+		<input type="text" id="job_skill" name="job_skill" class="field-style field-split align-left" placeholder="job skill" />
+		<input type="text" id="Gender" name="field2" class="field-style field-split align-right" placeholder="Gender" />
+	</li>
+	<li>
+		<input type="date" id="Jobexpirydate" data-date-format="YYYY MMMM DD" name="Jobexpirydate" class="field-style field-split align-left" placeholder="Job expiry date" />
+		<input type="text" id="Salary" name="field2" class="field-style field-split align-right" placeholder="Salary" />
+	</li>
+	<li>
+		<input type="text" id="Country" data-date-format="YYYY MMMM DD" name="Jobexpirydate" class="field-style field-split align-left" placeholder="Country" />
+		<input type="text" id="State" name="field2" class="field-style field-split align-right" placeholder="State" />
+	</li>
+	<li>
+		<input type="text" id="City" data-date-format="YYYY MMMM DD" name="Jobexpirydate" class="field-style field-split align-left" placeholder="City" />
+		<input type="text" id="Careerlevel" name="field2" class="field-style field-split align-right" placeholder="Career level" />
+	</li>
+	<li>
+		<input type="text" id="Degreelevel" data-date-format="YYYY MMMM DD" name="Jobexpirydate" class="field-style field-split align-left" placeholder="Degree level" />
+		<input type="text" id="Jobexperience" name="field2" class="field-style field-split align-right" placeholder="Job experience" />
+	</li>
+	<li>
+		<input type="email" id="email" data-date-format="YYYY MMMM DD" name="Jobexpirydate" class="field-style field-split align-left" placeholder="Degree level" />
+		<input type="text" id="Remotework" name="field2" class="field-style field-split align-right" placeholder="Remote work" />
+	</li>
+	
+	<li>
+		<input type="url" id= "job_url" name="field3" class="field-style field-full align-none" placeholder="Form URL" />
+	</li>
+	<li>
+		<input type="text" id= "mobile_no" name="field3" class="field-style field-full align-none" placeholder="Mobile no" />
+	</li>
+	<li>
+	<textarea name="field5" class="field-style" id="Description" placeholder="Description"></textarea>
+	</li>
+	<li>
+		<input type="button" class="btn btn-info btn-sm" value='SUBMIT' onclick="add_industry()"/>
+	</li>
+	</ul>
+	</form>
 <table id="tna_datatable" class="table-hover" style="height:10px;width:100%">
 	<thead>
 		<tr>
@@ -307,33 +387,38 @@
 	
 	document.getElementById('menu').innerHTML='<span class="dashboard">Job Profile</span>'
 	document.getElementById('3').className="active"
+	document.getElementById('Jobexpirydate').min = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+
+
     function add_industry(){
 		// alert($("#id_share_class_type").val());
 		
 		
-		if($('#id_companey_name').val()){
+		if($('#CompaneyName').val()){
 		// if($("#id_share_class_name").val() && $("#share_class_inception_date").val() && $("#id_share_class_type").val() && $("#id_share_class_cusip").val() && $("#id_share_class_symbol").val() && $("#id_share_class_lot_number").val()){
 			
 			$.ajax({
 			url: "{% url 'add_job_profile' %}",
 			data: {
-			'companey_name': $('#id_companey_name').val(),
-            'job_Title': $('#id_job_Title').val(),
-            'job_type': $('#id_job_type').val(),
-            'job_Category': $('#id_job_Category').val(),
-            'job_skill': $('#id_job_skill').val(),
-            'gender': $('#id_gender').val(),
-            'job_exp_date': $('#id_job_exp_date').val(),
-            'salary': $('#id_salary').val(),
-            'country': $('#id_country').val(),
-            'state': $('#id_state').val(),
-            'city': $('#id_city').val(),
-            'career_level': $('#id_career_level').val(),
-            'degree_level': $('#id_degree_level').val(),
-            'job_experience': $('#id_job_experience').val(),
-            'description': $('#id_description').val(),
-            'remote_work': $('#id_remote_work').val()
-            
+			'companey_name': $('#CompaneyName').val(),
+            'job_Title': $('#JobTitle').val(),
+            'job_type': $('#JobType').val(),
+            'job_Category': $('#Jobcategory').val(),
+            'job_skill': $('#job_skill').val(),
+            'gender': $('#Gender').val(),
+            'job_exp_date': $('#Jobexpirydate').val(),
+            'salary': $('#Salary').val(),
+            'country': $('#Country').val(),
+            'state': $('#State').val(),
+            'city': $('#City').val(),
+            'career_level': $('#Careerlevel').val(),
+            'degree_level': $('#Degreelevel').val(),
+            'job_experience': $('#Jobexperience').val(),
+            'description': $('#Description').val(),
+            'remote_work': $('#Remotework').val(),
+            'job_url': $('#job_url').val(),
+			'mobile_no': $('#mobile_no').val(),
+			'email': $('#email').val(),
 		
 			},
 			dataType: 'json',
@@ -342,12 +427,12 @@
 			if (data.added!=true) {
 				
 				//$("#id_alert").append(make_alert("info","ShareClass already exists."));
-				window.alert("Industry already exists.");
+				window.alert("Job already exists.");
 			}
 			else{
 				
 				// $("#id_alert").append(make_alert("success","ShareClass added successfully.!"));
-				window.alert("Industry added successfully.!");
+				window.alert("Job added successfully.!");
 				window.location.reload();
 			}
 			},
@@ -363,6 +448,11 @@
 			window.alert("Please enter CompaneyName");
 		}
 	}
+	
+
+
+
+
 	$(document).ready(function () {
 		var table = $('#tna_datatable').DataTable({
 			data: {{ available_industries| safe}},
@@ -380,6 +470,63 @@
 		});
 		
 	});
+
+	function delete_job_profile(val){
+		console.log(val)
+        bootbox.confirm({
+            message: "Are you sure to Delete job profile?",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if(result){
+                    var dict={}
+                    
+                    
+                    dict['id']=val
+                    dict['deleted']=true
+               
+               
+                    dict['csrfmiddlewaretoken'] = "{{ csrf_token }}";
+                
+                    $.ajax({                       
+                        type: 'POST',
+                        url: "{% url 'delete_job_profile' %}",
+                        data : dict,
+                        traditional: true,
+                        cache: false,
+                            success: function (data) {   
+                            if (data.is_taken){
+								
+                          
+                                window.alert("success","Job Deleted successfully!"); 
+								window.location.reload()
+                            }
+                            else {
+                             
+                                window.alert("fail","Job Deleted successfully!");
+                                window.location.reload()
+                            }
+                            
+                        },
+                        error: function (jqXHR, status, err) {
+                            
+                            window.alert("danger","Sorry, Something went wrong.");
+                        }
+                    });
+                }
+			}
+			});
+		}
+
+
 </script>
 
     {% endblock %}

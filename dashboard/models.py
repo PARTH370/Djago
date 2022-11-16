@@ -39,5 +39,8 @@ class job_profiles(models.Model):
      job_experience=models.CharField(null=True,max_length=100)
      description=models.CharField(null=True,max_length=10000)
      remote_work=models.CharField(null=True,max_length=100)
+     job_url=models.CharField(null=True,max_length=1000)
+     email=models.CharField(null=True,max_length=100)
+     mobile_no=models.CharField(null=True,max_length=10)
      created_on = models.DateTimeField(null=True, default=timezone.now)
      updated_on= models.DateTimeField(null=True, default=timezone.now)

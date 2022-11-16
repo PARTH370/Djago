@@ -131,13 +131,13 @@
                 
                     $.ajax({                       
                         type: 'POST',
-                        url: "{% url 'delete_job_profile' %}",
+                        url: "{% url 'delete_industry' %}",
                         data : dict,
                         traditional: true,
                         cache: false,
                             success: function (data) {   
                             if (data.is_taken){
-								console.log("hiii")
+								
                           
                                 make_alert("success","Breakpoint Deleted successfully!"); 
 								window.location.reload()
