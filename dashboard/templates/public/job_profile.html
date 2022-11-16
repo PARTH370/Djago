@@ -290,7 +290,7 @@
 	  
 		td, th {
 		  padding: 10px;
-		  color: #c88ec4;
+		  color: #f291b4;
 		}
 	  
 		tr:nth-child(2n+2) td {
@@ -312,52 +312,54 @@
 	  </main>
 	  
 </div>
+
 <form class="form-style-9">
 	<ul>
 		
 	<li>
-		<input type="text" id="CompaneyName" name="field1" class="field-style field-split align-left" placeholder="Companey Name" />
+		{% comment %} <input type="text" id="CompaneyName" name="field1" class="field-style field-split align-left" placeholder="Companey Name" /> {% endcomment %}
+		{{form.companey_name}}
+		{{form.job_Title}}
+	
+	</li>
+	<li>
+		{{form.job_type}}
+		{{form.job_Category}}
+	</li>
+	<li>
+		{{form.job_skill}}
+		{{form.gender}}
+	</li>
+	<li>
+		{{form.email}}
+		{{form.salary}}
+	</li>
+	<li>
+		{{form.country}}
+		{{form.career_level}}
+	</li>
+	<li>
+		{{form.city}}
+		{{form.job_experience}}
+	</li>
+	<li>
+		{{form.degree_level}}
+		{{form.state}}
+	</li>
+	<li>
 		
-		<input type="text" id="JobTitle" name="field2" class="field-style field-split align-right" placeholder="JobTitle" />
-	
-	</li>
-	<li>
-		<input type="text" id="JobType"name="JobType" class="field-style field-split align-left" placeholder="Job Type" />
-		<input type="text" id="Jobcategory" name="field2" class="field-style field-split align-right" placeholder="Job category" />
-	</li>
-	<li>
-		<input type="text" id="job_skill" name="job_skill" class="field-style field-split align-left" placeholder="job skill" />
-		<input type="text" id="Gender" name="field2" class="field-style field-split align-right" placeholder="Gender" />
-	</li>
-	<li>
-		<input type="date" id="Jobexpirydate" data-date-format="YYYY MMMM DD" name="Jobexpirydate" class="field-style field-split align-left" placeholder="Job expiry date" />
-		<input type="text" id="Salary" name="field2" class="field-style field-split align-right" placeholder="Salary" />
-	</li>
-	<li>
-		<input type="text" id="Country" data-date-format="YYYY MMMM DD" name="Jobexpirydate" class="field-style field-split align-left" placeholder="Country" />
-		<input type="text" id="State" name="field2" class="field-style field-split align-right" placeholder="State" />
-	</li>
-	<li>
-		<input type="text" id="City" data-date-format="YYYY MMMM DD" name="Jobexpirydate" class="field-style field-split align-left" placeholder="City" />
-		<input type="text" id="Careerlevel" name="field2" class="field-style field-split align-right" placeholder="Career level" />
-	</li>
-	<li>
-		<input type="text" id="Degreelevel" data-date-format="YYYY MMMM DD" name="Jobexpirydate" class="field-style field-split align-left" placeholder="Degree level" />
-		<input type="text" id="Jobexperience" name="field2" class="field-style field-split align-right" placeholder="Job experience" />
-	</li>
-	<li>
-		<input type="email" id="email" data-date-format="YYYY MMMM DD" name="Jobexpirydate" class="field-style field-split align-left" placeholder="Degree level" />
-		<input type="text" id="Remotework" name="field2" class="field-style field-split align-right" placeholder="Remote work" />
+		{{form.remote_work}}
 	</li>
 	
 	<li>
-		<input type="url" id= "job_url" name="field3" class="field-style field-full align-none" placeholder="Form URL" />
+		{{form.form_url}}
 	</li>
 	<li>
-		<input type="text" id= "mobile_no" name="field3" class="field-style field-full align-none" placeholder="Mobile no" />
+		{{form.mobile_no}}
 	</li>
 	<li>
-	<textarea name="field5" class="field-style" id="Description" placeholder="Description"></textarea>
+		
+		{{form.description}}
 	</li>
 	<li>
 		<input type="button" class="btn btn-info btn-sm" value='SUBMIT' onclick="add_industry()"/>
@@ -384,41 +386,41 @@
 </table>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script>
-	
+
 	document.getElementById('menu').innerHTML='<span class="dashboard">Job Profile</span>'
 	document.getElementById('3').className="active"
-	document.getElementById('Jobexpirydate').min = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+	{% comment %} document.getElementById('Jobexpirydate').min = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0]; {% endcomment %}
 
 
     function add_industry(){
 		// alert($("#id_share_class_type").val());
 		
 		
-		if($('#CompaneyName').val()){
+		if($('#id_companey_name').val()){
 		// if($("#id_share_class_name").val() && $("#share_class_inception_date").val() && $("#id_share_class_type").val() && $("#id_share_class_cusip").val() && $("#id_share_class_symbol").val() && $("#id_share_class_lot_number").val()){
 			
 			$.ajax({
 			url: "{% url 'add_job_profile' %}",
 			data: {
-			'companey_name': $('#CompaneyName').val(),
-            'job_Title': $('#JobTitle').val(),
-            'job_type': $('#JobType').val(),
-            'job_Category': $('#Jobcategory').val(),
-            'job_skill': $('#job_skill').val(),
-            'gender': $('#Gender').val(),
-            'job_exp_date': $('#Jobexpirydate').val(),
-            'salary': $('#Salary').val(),
-            'country': $('#Country').val(),
-            'state': $('#State').val(),
-            'city': $('#City').val(),
-            'career_level': $('#Careerlevel').val(),
-            'degree_level': $('#Degreelevel').val(),
-            'job_experience': $('#Jobexperience').val(),
-            'description': $('#Description').val(),
-            'remote_work': $('#Remotework').val(),
-            'job_url': $('#job_url').val(),
-			'mobile_no': $('#mobile_no').val(),
-			'email': $('#email').val(),
+			'companey_name': $('#id_companey_name').val(),
+            'job_Title': $('#id_job_Title').val(),
+            'job_type': $('#id_job_type').val(),
+            'job_Category': $('#id_job_Category').val(),
+            'job_skill': $('#id_job_skill').val(),
+            'gender': $('#id_gender').val(),
+            
+            'salary': $('#id_salary').val(),
+            'country': $('#id_country').val(),
+            'state': $('#id_state').val(),
+            'city': $('#id_city').val(),
+            'career_level': $('#id_career_level').val(),
+            'degree_level': $('#id_degree_level').val(),
+            'job_experience': $('#id_job_experience').val(),
+            'description': $('#id_description').val(),
+            'remote_work': $('#id_remote_work').val(),
+            'job_url': $('#id_form_url').val(),
+			'mobile_no': $('#id_mobile_no').val(),
+			'email': $('#id_email').val(),
 		
 			},
 			dataType: 'json',
@@ -427,12 +429,12 @@
 			if (data.added!=true) {
 				
 				//$("#id_alert").append(make_alert("info","ShareClass already exists."));
-				window.alert("Job already exists.");
+				window.alert("Industry already exists.");
 			}
 			else{
 				
 				// $("#id_alert").append(make_alert("success","ShareClass added successfully.!"));
-				window.alert("Job added successfully.!");
+				window.alert("Industry added successfully.!");
 				window.location.reload();
 			}
 			},

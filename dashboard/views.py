@@ -127,11 +127,11 @@ def add_job_profile(request):
     industry=request.GET.get("companey_name")
     job_Title=request.GET.get("job_Title")
     JobType=request.GET.get("job_type")
-    print(JobType)
+ 
     job_Category=request.GET.get("job_Category")
     job_skill=request.GET.get("job_skill")
     gender=request.GET.get("gender")
-    job_exp_date=request.GET.get("job_exp_date")
+    
     job_url=request.GET.get("job_url")
     mobile_no=request.GET.get("mobile_no")
     email=request.GET.get("email")
@@ -146,8 +146,8 @@ def add_job_profile(request):
     remote_work=request.GET.get("remote_work")
 
     data={'added':False}
-    if job_exp_date=="":
-        job_exp_date=str(date.today() +relativedelta(months=+3))
+    
+    job_exp_date=str(date.today() +relativedelta(months=+3))
     
         
    
