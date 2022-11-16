@@ -218,7 +218,7 @@ def get_file_path():
     if system_name == "Windows":
         file_path = r"config_file.json"
     if system_name == "Linux":
-        file_path = "/etc/api_config.json"
+        file_path = "/etc/ifa_robo_api_config.json"
     return file_path
 
 

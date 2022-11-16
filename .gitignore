@@ -8,8 +8,5 @@ env/
 /vnev
 
 __pycache__/
-.settings.py
+
 config_file.json
-./manage.py makemigrations --merge
-*.pyc 
-**/*.pyc

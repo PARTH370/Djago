@@ -6,7 +6,85 @@
 {{ form.media}}
 {% endblock %}
 {% block content %}
-<style>
+<link rel="stylesheet" href="{% static 'public/table.css' %}">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.13.1/datatables.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.13.1/datatables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" defer></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<style type="text/css">
+	
+		.form-style-9{
+			max-width: 1000px;
+			background: #FAFAFA;
+			padding: 30px;
+			margin: 50px auto;
+			box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
+			border-radius: 10px;
+			border: 6px solid #305A72;
+		}
+		.form-style-9 ul{
+			padding:0;
+			margin:0;
+			list-style:none;
+		}
+		.form-style-9 ul li{
+			display: block;
+			margin-bottom: 10px;
+			min-height: 35px;
+		}
+		.form-style-9 ul li  .field-style{
+			box-sizing: border-box; 
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box; 
+			padding: 8px;
+			outline: none;
+			border: 1px solid #B0CFE0;
+			-webkit-transition: all 0.30s ease-in-out;
+			-moz-transition: all 0.30s ease-in-out;
+			-ms-transition: all 0.30s ease-in-out;
+			-o-transition: all 0.30s ease-in-out;
+		
+		}.form-style-9 ul li  .field-style:focus{
+			box-shadow: 0 0 5px #B0CFE0;
+			border:1px solid #B0CFE0;
+		}
+		.form-style-9 ul li .field-split{
+			width: 49%;
+		}
+		.form-style-9 ul li .field-full{
+			width: 100%;
+		}
+		.form-style-9 ul li input.align-left{
+			float:left;
+		}
+		.form-style-9 ul li input.align-right{
+			float:right;
+		}
+		.form-style-9 ul li textarea{
+			width: 100%;
+			height: 100px;
+		}
+		.form-style-9 ul li input[type="button"], 
+		.form-style-9 ul li input[type="submit"] {
+			-moz-box-shadow: inset 0px 1px 0px 0px #3985B1;
+			-webkit-box-shadow: inset 0px 1px 0px 0px #3985B1;
+			box-shadow: inset 0px 1px 0px 0px #3985B1;
+			background-color: #216288;
+			border: 1px solid #17445E;
+			display: inline-block;
+			cursor: pointer;
+			color: #FFFFFF;
+			padding: 8px 18px;
+			text-decoration: none;
+			font: 12px Arial, Helvetica, sans-serif;
+		}
+		.form-style-9 ul li input[type="button"]:hover, 
+		.form-style-9 ul li input[type="submit"]:hover {
+			background: linear-gradient(to bottom, #2D77A2 5%, #337DA8 100%);
+			background-color: #28739E;
+		}
+	
 	* {
 		box-sizing: border-box;
 	  }
@@ -234,56 +312,86 @@
 	  </main>
 	  
 </div>
-<div class="overview-boxes">
-	<div class="box">
-		<div class="form-group">    
-			<label>Companey Name</label>
-        </br>
-			{{form.companey_name}}
-        </br>
-            <label>Job Title</label>
-        </br> {{form.job_Title}}
-    </br> <label>Job Type</label>
-</br>   {{form.job_type}}
-</br>       <label>Job category</label>
-</br>       {{form.job_Category}}
-</br>       <label>Job skill</label>
-</br>       {{form.job_skill}}
-</br>       <label>Gender</label>
-</br>       {{form.gender}}
-</br>       <label>Job expiry date</label>
-</br>       {{form.job_exp_date}}
-</br>       <label>Salary</label>
-</br> {{form.salary}}
-        </br>       <label>Country</label>
-    </br>       {{form.country}}
-</br>   <label>State</label>
-</br>       {{form.state}}
-</br>       <label>City</label>
-</br>       {{form.city}}
-</br>       <label>Career level</label>
-</br>       {{form.career_level}}
-</br>       <label>Degree level</label>
-</br>       {{form.degree_level}}
-</br>       <label>Job experience</label>
-</br>       {{form.job_experience}}
-</br>       <label>Description</label>
-</br>       {{form.description}}
-</br>       <label>Remote Work</label>
-</br>       {{form.remote_work}}
 
+<form class="form-style-9">
+	<ul>
+		
+	<li>
+		{% comment %} <input type="text" id="CompaneyName" name="field1" class="field-style field-split align-left" placeholder="Companey Name" /> {% endcomment %}
+		{{form.companey_name}}
+		{{form.job_Title}}
+	
+	</li>
+	<li>
+		{{form.job_type}}
+		{{form.job_Category}}
+	</li>
+	<li>
+		{{form.job_skill}}
+		{{form.gender}}
+	</li>
+	<li>
+		{{form.email}}
+		{{form.salary}}
+	</li>
+	<li>
+		{{form.country}}
+		{{form.career_level}}
+	</li>
+	<li>
+		{{form.city}}
+		{{form.job_experience}}
+	</li>
+	<li>
+		{{form.degree_level}}
+		{{form.state}}
+	</li>
+	<li>
+		
+		{{form.remote_work}}
+	</li>
+	
+	<li>
+		{{form.form_url}}
+	</li>
+	<li>
+		{{form.mobile_no}}
+	</li>
+	<li>
+		
+		{{form.description}}
+	</li>
+	<li>
+		<input type="button" class="btn btn-info btn-sm" value='SUBMIT' onclick="add_industry()"/>
+	</li>
+	</ul>
+	</form>
+<table id="tna_datatable" class="table-hover" style="height:10px;width:100%">
+	<thead>
+		<tr>
 
-</br> 
-			<input type="button" class="btn btn-info btn-sm" value='SUBMIT' style="position: relative;top: 6px;width: 65px" onclick="add_industry()"/>
-		</div>
-	</div>
-</div>
+			<th class="tbhead vsm c">ID</th>
+			
+			<th class="tbhead vsm c">companey_name</th>
+			<th class="tbhead vsm c">job_Title</th>
+			<th class="tbhead vsm c">job_Category</th>
+			<th class="tbhead vsm c">job_exp_date</th>
+			
+			<th class="tbhead vsm c">updated_by_user_id</th>
+			<th class="edit">Edit</th>
+			<th class="update">Delete</th>
 
+		</tr>
+	</thead>
+</table>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script>
-	
+
 	document.getElementById('menu').innerHTML='<span class="dashboard">Job Profile</span>'
 	document.getElementById('3').className="active"
+	{% comment %} document.getElementById('Jobexpirydate').min = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0]; {% endcomment %}
+
+
     function add_industry(){
 		// alert($("#id_share_class_type").val());
 		
@@ -300,7 +408,7 @@
             'job_Category': $('#id_job_Category').val(),
             'job_skill': $('#id_job_skill').val(),
             'gender': $('#id_gender').val(),
-            'job_exp_date': $('#id_job_exp_date').val(),
+            
             'salary': $('#id_salary').val(),
             'country': $('#id_country').val(),
             'state': $('#id_state').val(),
@@ -309,8 +417,10 @@
             'degree_level': $('#id_degree_level').val(),
             'job_experience': $('#id_job_experience').val(),
             'description': $('#id_description').val(),
-            'remote_work': $('#id_remote_work').val()
-            
+            'remote_work': $('#id_remote_work').val(),
+            'job_url': $('#id_form_url').val(),
+			'mobile_no': $('#id_mobile_no').val(),
+			'email': $('#id_email').val(),
 		
 			},
 			dataType: 'json',
@@ -340,7 +450,87 @@
 			window.alert("Please enter CompaneyName");
 		}
 	}
+	
+
+
+
+
+	$(document).ready(function () {
+		var table = $('#tna_datatable').DataTable({
+			data: {{ available_industries| safe}},
+
+		scrollY: "375px",
+		scrollX: true,
+		scrollCollapse: true,
+		paging: true,
+		lengthMenu: [
+		[1500, 1000, 500, 250],
+		['1500 rows', '1000 rows', '500 rows', '250 rows']
+	]
+			
+			
+		});
+		
+	});
+
+	function delete_job_profile(val){
+		console.log(val)
+        bootbox.confirm({
+            message: "Are you sure to Delete job profile?",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if(result){
+                    var dict={}
+                    
+                    
+                    dict['id']=val
+                    dict['deleted']=true
+               
+               
+                    dict['csrfmiddlewaretoken'] = "{{ csrf_token }}";
+                
+                    $.ajax({                       
+                        type: 'POST',
+                        url: "{% url 'delete_job_profile' %}",
+                        data : dict,
+                        traditional: true,
+                        cache: false,
+                            success: function (data) {   
+                            if (data.is_taken){
+								
+                          
+                                window.alert("success","Job Deleted successfully!"); 
+								window.location.reload()
+                            }
+                            else {
+                             
+                                window.alert("fail","Job Deleted successfully!");
+                                window.location.reload()
+                            }
+                            
+                        },
+                        error: function (jqXHR, status, err) {
+                            
+                            window.alert("danger","Sorry, Something went wrong.");
+                        }
+                    });
+                }
+			}
+			});
+		}
+
+
 </script>
+<link rel="stylesheet" href="{% static 'public/newtable.css' %}">
     {% endblock %}
 
 
