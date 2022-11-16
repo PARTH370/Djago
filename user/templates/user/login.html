@@ -22,7 +22,9 @@
             {{ form.password|add_class:"form-control"}}
           <i class="fa fa-lock form-control-feedback" aria-hidden="true"></i>
         </div>
-        
+        {% if form.errors %}
+          <p>Your username and password didn't match. Please try again.</p>
+        {% endif %}
         
        <hr style="margin-top: 5px;margin-bottom: 10px;">
         
