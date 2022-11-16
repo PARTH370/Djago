@@ -116,3 +116,5 @@ media/
 !**/migrations
 !**/migrations/__init__.py
 config_file.json
+_migrations/*
+!_migrations/__init__.py
