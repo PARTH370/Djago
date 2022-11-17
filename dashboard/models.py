@@ -7,18 +7,18 @@ from django.utils import timezone
 class Job_industries(models.Model):
 
     name = models.CharField(max_length=100, null=True,
-                            unique=True, verbose_name="Job_industries")
+                            unique=True, verbose_name="Job_industries_name")
     status = models.BooleanField(default=True)
     updated_by_user = models.ForeignKey(
         User, on_delete=models.PROTECT, verbose_name="Temp Updated By")
     created_on = models.DateTimeField(null=True, default=timezone.now)
     updated_on = models.DateTimeField(null=True, default=timezone.now)
 
-    def _str_(self):
-        return f'{self.name}'
+    def __str__(self):
+        return self.name
 
     class Meta:
-        verbose_name_plural = "Job_industries"
+        ordering = ['created_on']
 
 class job_profiles(models.Model):
      companey_name = models.CharField(max_length=100,null=False,  default= "", verbose_name = "Job_industries")
