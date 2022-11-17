@@ -25,4 +25,5 @@ path('get-job-name',FT_view.get_job_name,name="get_job_name"),
     path("blog", FT_view.create_blog_post, name="blog_post"),
     path("add-blog-post",FT_view.add_blog_post,name="add_blog_post"),
     path("delete-blog-post",FT_view.delete_blog_post,name="delete_blog_profile"),
+    path('upload-blog',FT_view.index,name='upload')
 ]

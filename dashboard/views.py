@@ -12,7 +12,7 @@ from dashboard.forms import job_industry_form, total_records_form ,blog_form
 from django.http import JsonResponse
 from dashboard.models import Job_industries
 from django.contrib.auth.models import User
-
+import openpyxl
 def login_success(request):
     """
     Redirects users based on whether they are in the admins group
@@ -211,7 +211,7 @@ def show_user(request):
 
 @login_required
 def delete_user(request):
-    id=request.POST.get("id")
+    id=request.GET.get("id")
     data={'is_taken':False}
     find_user=User.objects.filter(id=id)
     if find_user.exists():
@@ -219,3 +219,41 @@ def delete_user(request):
         data['is_taken']=True
     return JsonResponse(data)
 
+
+# Pending Not Perfect working
+@login_required
+def index(request):
+    
+        excel_file = request.FILES["excel_file"]
+
+        # you may put validations here to check extension or file size
+
+        wb = openpyxl.load_workbook(excel_file)
+
+        # getting all sheets
+        sheets = wb.sheetnames
+        print(sheets)
+
+        # getting a particular sheet
+        worksheet = wb["Sheet 1 - Companies-House-searc"]
+        print(worksheet)
+
+        # getting active sheet
+        active_sheet = wb.active
+        print(active_sheet)
+
+        # reading a cell
+        print(worksheet["A1"].value)
+
+        excel_data = list()
+        # iterating over the rows and
+        # getting value from each cell in row
+        for row in worksheet.iter_rows():
+            row_data = list()
+            for cell in row:
+                row_data.append(str(cell.value))
+                print(cell.value)
+            excel_data.append(row_data)
+
+        # return render(request, 'myapp/index.html', {"excel_data":excel_data})
+        return render(request, 'public/user.html',{'available_users':excel_data})
