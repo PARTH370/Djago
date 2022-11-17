@@ -1,8 +1,8 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Job_industries, job_profiles
+from .models import Job_industries, Posts, job_profiles
 from bootstrap_datepicker_plus.widgets import DatePickerInput
-from .models import Job_industries
+
 
 
 class job_industry_form(forms.ModelForm):
@@ -35,7 +35,7 @@ class job_profile_form(forms.ModelForm):
     email= forms.EmailField(widget=forms.TextInput(attrs={'placeholder':"Email","class":"field-style field-split align-left"}), max_length=100, required=False)
     class Meta:
         model = job_profiles
-        fields = ["companey_name","job_Title","job_type","job_Category","job_skill","gender","job_exp_date","salary_package","country","state","city","career_level","degree_level","job_experience","description","remote_work"]
+        fields = ["companey_name","mobile_no","form_url","email","job_Title","job_type","job_Category","job_skill","gender","job_exp_date","salary_package","country","state","city","career_level","degree_level","job_experience","description","remote_work"]
 
 
 
@@ -44,7 +44,20 @@ class total_records_form(forms.ModelForm):
         attrs={'placeholder': "Industries"}), max_length=100, required=False)
     total_user = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': "User"}), max_length=100, required=False)
-
+    total_blogs = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': "Blog"}), max_length=100, required=False)
+    total_jobs = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': "Job"}), max_length=100, required=False)   
     class Meta:
         model = Job_industries
         fields = ["name"]
+
+class blog_form(forms.ModelForm):
+     title= forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Title","class":"field-style field-full align-none"}), max_length=10000, required=False)
+     slug= forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Slug","class":"field-style field-full align-none"}), max_length=10000, required=False)
+     image= forms.ImageField()
+     
+     content= forms.CharField(widget=forms.Textarea(attrs={'placeholder':"Content","class":"field-style"}), max_length=10000, required=False)
+     class Meta:
+        model = Posts
+        fields = ["title","slug","content","blog_image"]

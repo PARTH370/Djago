@@ -37,7 +37,7 @@ class job_profiles(models.Model):
      career_level=models.CharField(null=True,max_length=100)
      degree_level=models.CharField(null=True,max_length=100)
      job_experience=models.CharField(null=True,max_length=100)
-     description=models.CharField(null=True,max_length=10000)
+     description=models.TextField()
      remote_work=models.CharField(null=True,max_length=100)
      job_url=models.CharField(null=True,max_length=1000)
      email=models.CharField(null=True,max_length=100)
@@ -45,3 +45,15 @@ class job_profiles(models.Model):
      created_on = models.DateTimeField(null=True, default=timezone.now)
      updated_on= models.DateTimeField(null=True, default=timezone.now)
 
+
+
+
+class Posts(models.Model):
+    title = models.CharField(max_length=300, null=True)
+    slug = models.CharField(max_length=300,null=True)
+    author = models.ForeignKey(User, on_delete=models.PROTECT,verbose_name="Temp Updated By")
+    updated_on = models.DateTimeField(default=timezone.now,null=True)
+    content = models.TextField(null=True)
+    created_on = models.DateTimeField(default=timezone.now,null=True)
+    status = models.BooleanField( default=False)
+    blog_image=models.CharField(max_length=1000, null=True)

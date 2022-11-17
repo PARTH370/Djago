@@ -10,6 +10,8 @@
 <p id="demo">
     {{form.total_industry}}
     {{form.total_user}}
+    {{form.total_blogs}}
+    {{form.total_jobs}}
 </p>
 <div class="overview-boxes">
     <div class="box" id="total_industry">
@@ -20,13 +22,24 @@
 
     </div>
 </div>
+<div class="overview-boxes">
+    <div class="box" id="total_blogs">
+
+    </div>
+</div>
+<div class="overview-boxes">
+    <div class="box" id="total_jobs">
+
+    </div>
+</div>
 <script>
     document.getElementById('demo').hidden = true
     document.getElementById('menu').innerHTML = '<span class="dashboard">Dashboard</span>'
     document.getElementById('1').className = "active"
     document.getElementById('total_industry').innerHTML = '<a href="{% url "job_industry" %}"><div class="box-topic">Total Industry </div> <div class="number">' + $('#id_total_industry').val() + '</div></a>'
-
+    document.getElementById('total_blogs').innerHTML = '<a href="{% url "blog_post" %}"> <div class="box-topic">Total Blogs </div> <div class="number">' + $('#id_total_blogs').val() + '</div></a>'
     document.getElementById('total_user').innerHTML = '<a href="{% url "show_all_users" %}"> <div class="box-topic">Total User </div> <div class="number">' + $('#id_total_user').val() + '</div></a>'
+    document.getElementById('total_jobs').innerHTML = '<a href="{% url "job_profile" %}"> <div class="box-topic">Total Jobs </div> <div class="number">' + $('#id_total_jobs').val() + '</div></a>'
 </script>
 
 {% endblock %}

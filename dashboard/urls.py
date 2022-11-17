@@ -21,5 +21,8 @@ path('get-job-name',FT_view.get_job_name,name="get_job_name"),
     path("delete-industry", FT_view.delete_industry, name="delete_industry"),
     path("delete-job-profile", FT_view.delete_job_profile, name="delete_job_profile"),
     path("user-details", FT_view.show_user, name="show_all_users"),
-    path("delete-user", FT_view.delete_user, name="delete_user")
+    path("delete-user", FT_view.delete_user, name="delete_user"),
+    path("blog", FT_view.create_blog_post, name="blog_post"),
+    path("add-blog-post",FT_view.add_blog_post,name="add_blog_post"),
+    path("delete-blog-post",FT_view.delete_blog_post,name="delete_blog_profile"),
 ]

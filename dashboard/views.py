@@ -7,8 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from dashboard.forms import job_industry_form ,total_records_form, job_profile_form
 from django.http import JsonResponse
-from dashboard.models import  Job_industries ,job_profiles
-from dashboard.forms import job_industry_form, total_records_form
+from dashboard.models import  Job_industries ,job_profiles,Posts
+from dashboard.forms import job_industry_form, total_records_form ,blog_form
 from django.http import JsonResponse
 from dashboard.models import Job_industries
 from django.contrib.auth.models import User
@@ -36,6 +36,8 @@ class dashboard_home(LoginRequiredMixin, CreateView):
     def get_form(self, form_class=total_records_form):
         form = super(dashboard_home, self).get_form(form_class)
         form.fields['total_industry'].initial = Job_industries.objects.filter(status=1).count()
+        form.fields['total_blogs'].initial = Posts.objects.filter(status=1).count()
+        form.fields['total_jobs'].initial = job_profiles.objects.filter(status=1).count()
         form.fields['total_user'].initial = User.objects.filter(is_active=1).count()
         return form
 
@@ -47,6 +49,18 @@ def create_job_industries(request):
     for i in range(len(available_industries)):
         data.append([i,str(available_industries[i][0]),'<a class="btn btn-info btn-sm" values=('+str(available_industries[i])+') onclick="edit('+str(available_industries[i][1])+')">' + 'Edit' + '</a>','<a class="btn btn-info btn-sm"  onclick="delete_industry('+str(available_industries[i][1])+')">' + 'Delete' + '</a>'])
     return render(request, 'public/new.html',{'form':form,'available_industries':data})
+
+
+@login_required
+def create_blog_post(request):
+    form = blog_form()
+    available_industries=Posts.objects.filter(status=1).values_list('id','title','author',"slug")
+    data=[]
+    for i in range(len(available_industries)):
+        data.append([i,str(available_industries[i][1]),str(available_industries[i][2]),str(available_industries[i][3]),'<a class="btn btn-info btn-sm" values=('+str(available_industries[i][0])+') onclick="edit('+str(available_industries[i][0])+')">' + 'Edit' + '</a>','<a class="btn btn-info btn-sm"  onclick="delete_blog('+str(available_industries[i][0])+')">' + 'Delete' + '</a>'])
+    return render(request, 'public/blog.html',{'form':form,'available_industries':data})
+
+
 
 @login_required
 def add_industry(request):
@@ -87,6 +101,19 @@ def delete_industry(request):
     data={'is_taken':False}
 
     find_data=Job_industries.objects.filter(id=id)
+    print(id,find_data.exists())
+    if find_data.exists():
+        add_industry_objet=find_data.update(status=0,updated_on=datetime.now())
+        data['is_taken']=True
+    return JsonResponse(data)
+
+@login_required
+def delete_blog_post(request):
+    id=request.POST.get("id")
+    data={'is_taken':False}
+
+    find_data=Posts.objects.filter(id=id)
+   
     print(id,find_data.exists())
     if find_data.exists():
         add_industry_objet=find_data.update(status=0,updated_on=datetime.now())
@@ -156,7 +183,23 @@ def add_job_profile(request):
     data['added']=True  
     return JsonResponse(data)
 
+@login_required
+def add_blog_post(request):
+    title=request.GET.get("title")
+    content=request.GET.get("content")
+   
+    
+    slug=request.GET.get("slug")
+    print(title,content,slug,"dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
+    data={'added':False}
+    
+    
+    
 
+    add_industry_obj=Posts(title=title,content=content,status=1,slug=slug,author_id=request.user.id,created_on=datetime.now(),updated_on=datetime.now())
+    add_industry_obj.save()
+    data['added']=True  
+    return JsonResponse(data)
 
 @login_required
 def show_user(request):
@@ -169,7 +212,6 @@ def show_user(request):
 @login_required
 def delete_user(request):
     id=request.POST.get("id")
-    print(id,"+++++++++++++++++++++++")
     data={'is_taken':False}
     find_user=User.objects.filter(id=id)
     if find_user.exists():
