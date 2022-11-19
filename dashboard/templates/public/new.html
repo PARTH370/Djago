@@ -11,24 +11,26 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.13.1/datatables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" defer></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-
+<link rel="stylesheet" href="{% static 'public/job_profile.css' %}">
 <!-- Add  Industry -->
-<div class="overview-boxes">
+<form class="form-style-9">
+
 	<div class="title">Add Industry</div>
-</div>
-<div class="box box-default opensearchitem" id="searchcontent">
-	<div class="form-group">
+
+
+	
 		<label>Industry Name</label>
 		<br>
 		<input type="text" name="industry_name" placeholder="Industries" maxlength="100" id="id_industry_name">
 		<br>
 		<input type="button" class="btn btn-info btn-sm" value="SUBMIT" style="position: relative;top: 6px;width: 65px"
 			onclick="add_industry()">
-	</div>
-</div>
+	
 
+</form>
 <!-- Get Industry DataTable -->
-<table id="tna_datatable" class="table-hover" style="height:10px;width:100%">
+<a id="tabel">
+<table id="Industry_datatable" class="table-hover" style="height:10px;width:100%">
 	<thead>
 		<tr>
 
@@ -40,7 +42,8 @@
 		</tr>
 	</thead>
 </table>
-
+</a>
+</div>
 <script>
 	function make_alert(classes, msg) {
 		bootbox.alert({
@@ -162,7 +165,7 @@
 		
 	/* Get Added Industry Datatable */
 	$(document).ready(function () {
-		var table = $('#tna_datatable').DataTable({
+		var table = $('#Industry_datatable').DataTable({
 			data: {{ available_industries| safe}},
 
 		scrollY: "375px",
