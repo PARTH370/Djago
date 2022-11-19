@@ -79,6 +79,11 @@ def add_industry(request):
 def edit_job_industries(request):
     form = job_industry_form()
     return render(request, 'public/update_industry.html',{'form':form})
+@login_required
+def edit_job_profile(request):
+    form = job_profile_form()
+    return render(request, 'public/update_job_profile.html',{'form':form})
+
 
 @login_required
 def update_job_industries(request):
@@ -94,6 +99,44 @@ def update_job_industries(request):
         add_industry_objet=find_data.update(name=request.GET.get("name"),updated_on=datetime.now())
         data['added']=True
     return JsonResponse(data)
+
+@login_required
+def update_job_profile(request):
+    id=request.GET.get("id")
+    print(id,"hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+    industry=request.GET.get("companey_name")
+    job_Title=request.GET.get("job_Title")
+    JobType=request.GET.get("job_type")
+ 
+    job_Category=request.GET.get("job_Category")
+    job_skill=request.GET.get("job_skill")
+    gender=request.GET.get("gender")
+    
+    job_url=request.GET.get("job_url")
+    mobile_no=request.GET.get("mobile_no")
+    email=request.GET.get("email")
+    salary=request.GET.get("salary")
+    country=request.GET.get("country")
+    state=request.GET.get("state")
+    city=request.GET.get("city")
+    career_level=request.GET.get("career_level")
+    degree_level=request.GET.get("degree_level")
+    job_experience=request.GET.get("job_experience")
+    description=request.GET.get("description")
+    remote_work=request.GET.get("remote_work")
+  
+    job_exp_date=str(date.today() +relativedelta(months=+3))
+    data={'added':False}
+    
+    find_data=job_profiles.objects.filter(id=id)
+    print(job_url)
+    if find_data.exists():
+
+        add_industry_objet=find_data.update(job_type=JobType, email=email,mobile_no=mobile_no,job_url=job_url,companey_name=industry,status=1,job_Title=job_Title,job_Category=job_Category,job_skill=job_skill,gender=gender,job_exp_date=job_exp_date,salary_package=salary,country=country,state=state,city=city,career_level=career_level,degree_level=degree_level,job_experience=job_experience,description=description,remote_work=remote_work,updated_by_user_id=request.user.id,created_on=datetime.now(),updated_on=datetime.now())
+        data['added']=True
+    return JsonResponse(data)
+
+
 
 @login_required
 def delete_industry(request):
@@ -138,7 +181,7 @@ def create_job_profile(request):
     available_industries=job_profiles.objects.filter(status=1).values_list('id','companey_name','job_Title','job_Category','job_exp_date','updated_by_user_id')
 
     for i in range(len(available_industries)):
-        data.append([i,str(available_industries[i][1]),str(available_industries[i][2]),str(available_industries[i][3]),str(available_industries[i][4]),str(available_industries[i][5]),'<a class="btn btn-info btn-sm" values=('+str(available_industries[i])+') onclick="edit('+str(available_industries[i][1])+')">' + 'Edit' + '</a>','<a class="btn btn-info btn-sm"  onclick="delete_job_profile('+str(available_industries[i][0])+')">' + 'Delete' + '</a>'])
+        data.append([i,str(available_industries[i][1]),str(available_industries[i][2]),str(available_industries[i][3]),str(available_industries[i][4]),str(available_industries[i][5]),'<a class="btn btn-info btn-sm" values=('+str(available_industries[i])+') onclick="edit('+str(available_industries[i][0])+')">' + 'Edit' + '</a>','<a class="btn btn-info btn-sm"  onclick="delete_job_profile('+str(available_industries[i][0])+')">' + 'Delete' + '</a>'])
    
     return render(request, 'public/job_profile.html',{'form':form,'available_industries':data})
 
@@ -148,7 +191,13 @@ def get_job_name(request):
     get_data=Job_industries.objects.filter(id=id).first()
     data={'added':get_data.name}
     return JsonResponse(data)
-
+@login_required
+def get_job_profile(request):
+    id=request.GET.get("id")
+    get_data=job_profiles.objects.filter(id=id).first()
+    print(get_data.companey_name,"ddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
+    data={'companey_name':get_data.companey_name,'job_Title':get_data.job_Title,'job_type':get_data.job_type,'job_Category':get_data.job_Category,'job_skill':get_data.job_skill,'gender':get_data.gender,'salary_package':get_data.salary_package,'country':get_data.country,'state':get_data.state,'city':get_data.city,'career_level':get_data.career_level,'degree_level':get_data.degree_level,'job_experience':get_data.job_experience,'description':get_data.description,'remote_work':get_data.remote_work,'job_url':get_data.job_url,'email':get_data.email,'mobile_no':get_data.mobile_no}
+    return JsonResponse(data)
 @login_required
 def add_job_profile(request):
     industry=request.GET.get("companey_name")
@@ -185,10 +234,11 @@ def add_job_profile(request):
 
 @login_required
 def add_blog_post(request):
+    print("hiii")
     title=request.GET.get("title")
     content=request.GET.get("content")
-   
-    
+    image=request.GET.get("image")
+    print(image)
     slug=request.GET.get("slug")
     print(title,content,slug,"dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
     data={'added':False}
@@ -196,7 +246,7 @@ def add_blog_post(request):
     
     
 
-    add_industry_obj=Posts(title=title,content=content,status=1,slug=slug,author_id=request.user.id,created_on=datetime.now(),updated_on=datetime.now())
+    add_industry_obj=Posts(title=title,blog_image=image,content=content,status=1,slug=slug,author_id=request.user.id,created_on=datetime.now(),updated_on=datetime.now())
     add_industry_obj.save()
     data['added']=True  
     return JsonResponse(data)
