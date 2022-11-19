@@ -282,7 +282,7 @@
 		// if($("#id_share_class_name").val() && $("#share_class_inception_date").val() && $("#id_share_class_type").val() && $("#id_share_class_cusip").val() && $("#id_share_class_symbol").val() && $("#id_share_class_lot_number").val()){
 			
 			$.ajax({
-			url: "{% url 'update_job_profile' %}",
+			url: "{% url 'update_job_industry' %}",
 			data: {
             'id':" {{request.GET.id}}",
 			'name': $('#id_industry_name').val(),
@@ -302,7 +302,7 @@
 				
 				// $("#id_alert").append(make_alert("success","ShareClass added successfully.!"));
 				window.alert("Industry updated successfully.!");
-				window.location.reload();
+				window.location.replace("{% url 'job_industry' %}");
 			}
 			},
 			error: function (jqXHR, status, err) {

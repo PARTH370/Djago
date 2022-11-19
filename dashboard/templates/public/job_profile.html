@@ -100,7 +100,26 @@
 	document.getElementById('3').className="active"
 	{% comment %} document.getElementById('Jobexpirydate').min = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0]; {% endcomment %}
 
-
+	function edit(data){
+		bootbox.confirm({
+		message: "Are you sure to Edit Job Profiles?",
+		buttons: {
+			confirm: {
+				label: 'Yes',
+				className: 'btn-success'
+			},
+			cancel: {
+				label: 'No',
+				className: 'btn-danger'
+			}
+		},
+		callback: function (result) {
+			if(result){
+			
+				window.location.replace("{% url 'edit_job_profiles' %}?id="+data);}
+			}
+		});
+		}
     function add_industry(){
 		// alert($("#id_share_class_type").val());
 		

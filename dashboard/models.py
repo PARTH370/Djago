@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from django.utils import timezone
 
-
+from PIL import Image
 class Job_industries(models.Model):
 
     name = models.CharField(max_length=100, null=True,
@@ -56,4 +56,16 @@ class Posts(models.Model):
     content = models.TextField(null=True)
     created_on = models.DateTimeField(default=timezone.now,null=True)
     status = models.BooleanField( default=False)
-    blog_image=models.CharField(max_length=1000, null=True)
+    blog_image=models.ImageField(upload_to="my_image", default='profile_pics/default.jpg')
+
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        
+        super().save(*args, **kwargs)
+
+        img = Image.open(self.blog_image.path)
+
+        if img.height > 10 or img.width > 10:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.blog_image.path)
