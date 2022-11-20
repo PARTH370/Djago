@@ -56,7 +56,7 @@ class Posts(models.Model):
     content = models.TextField(null=True)
     created_on = models.DateTimeField(default=timezone.now,null=True)
     status = models.BooleanField( default=False)
-    blog_image=models.ImageField(upload_to="my_image", default='profile_pics/default.jpg')
+    blog_image=models.ImageField(upload_to="profile_pics", default='profile_pics/default.jpg')
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''

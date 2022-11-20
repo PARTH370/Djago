@@ -88,17 +88,19 @@
 
     function add_blog(){
 		// alert($("#id_share_class_type").val());
-	//	let formData = new FormData();           
-    //formData.append("file", id_image.files[0]);
-	//console.log(formData)
+	let formData = new FormData();           
+    formData.append("file", id_image.files[0]);
+	
+	formData.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+	console.log(formData)
 		if($('#id_title').val()){
 		// if($("#id_share_class_name").val() && $("#share_class_inception_date").val() && $("#id_share_class_type").val() && $("#id_share_class_cusip").val() && $("#id_share_class_symbol").val() && $("#id_share_class_lot_number").val()){
 			
 			$.ajax({
 				
 			url: "{% url 'add_blog_post' %}",
-			
-			type:'post',
+			csrfmiddlewaretoken:"{{ csrf_token }}",
+	
 			contentType: false,
 			processTypr:false,
 
@@ -113,7 +115,7 @@
 			},
 			dataType: 'json',
 			success: function (data) {
-			console.log(data)
+			
 			if (data.added!=true) {
 				
 				//$("#id_alert").append(make_alert("info","ShareClass already exists."));
