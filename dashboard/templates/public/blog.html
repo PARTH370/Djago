@@ -48,7 +48,7 @@
 	</ul>
 </form>
 <form class="form-style-9" enctype="multipart/form-data">
-
+	{% csrf_token %}
 	<ul>
 		<li>
             
@@ -94,26 +94,28 @@
 <script>
 
     function add_industry(){
-		// alert($("#id_share_class_type").val());
-	//	let formData = new FormData();           
-    //formData.append("file", id_image.files[0]);
-	//console.log(formData)
+
+	var formData = new FormData();           
+    formData.append("csrfmiddlewaretoken" , "{{ csrf_token }}");
+formData.append("file", $("input[id^='file']")[0].files[0]);
+
+	
 		if($('#id_title').val()){
 		// if($("#id_share_class_name").val() && $("#share_class_inception_date").val() && $("#id_share_class_type").val() && $("#id_share_class_cusip").val() && $("#id_share_class_symbol").val() && $("#id_share_class_lot_number").val()){
 			
 			$.ajax({
 				
 			url: "{% url 'add_blog_post' %}",
+			type : "POST",
 			
-			type:'post',
 			contentType: false,
 			processTypr:false,
 
 			data: {
-			
+		
 				'title': $('#id_title').val(),
             'slug': $('#id_slug').val(),
-            //'image': document.getElementById('id_title').file,
+            'image': formData,
             'content': $('#id_content').val(),
             
 		

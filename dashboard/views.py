@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt,csrf_protect
 from dashboard.forms import job_industry_form ,total_records_form, job_profile_form
 from django.http import JsonResponse
 from dashboard.models import  Job_industries ,job_profiles,Posts
@@ -103,7 +104,7 @@ def update_job_industries(request):
 @login_required
 def update_job_profile(request):
     id=request.GET.get("id")
-    print(id,"hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+    
     industry=request.GET.get("companey_name")
     job_Title=request.GET.get("job_Title")
     JobType=request.GET.get("job_type")
@@ -195,7 +196,7 @@ def get_job_name(request):
 def get_job_profile(request):
     id=request.GET.get("id")
     get_data=job_profiles.objects.filter(id=id).first()
-    print(get_data.companey_name,"ddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
+    
     data={'companey_name':get_data.companey_name,'job_Title':get_data.job_Title,'job_type':get_data.job_type,'job_Category':get_data.job_Category,'job_skill':get_data.job_skill,'gender':get_data.gender,'salary_package':get_data.salary_package,'country':get_data.country,'state':get_data.state,'city':get_data.city,'career_level':get_data.career_level,'degree_level':get_data.degree_level,'job_experience':get_data.job_experience,'description':get_data.description,'remote_work':get_data.remote_work,'job_url':get_data.job_url,'email':get_data.email,'mobile_no':get_data.mobile_no}
     return JsonResponse(data)
 @login_required
@@ -234,22 +235,22 @@ def add_job_profile(request):
 
 @login_required
 def add_blog_post(request):
-    print("hiii")
-    title=request.GET.get("title")
-    content=request.GET.get("content")
-    image=request.GET.get("image")
-    print(image)
-    slug=request.GET.get("slug")
-    print(title,content,slug,"dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
-    data={'added':False}
+    if request.method == 'POST':
+        title=request.GET.get("title")
+        content=request.GET.get("content")
+        image=request.FILES.get("image")
     
+        slug=request.GET.get("slug")
     
-    
+        data={'added':False}
+        
+        
+        
 
-    add_industry_obj=Posts(title=title,blog_image=image,content=content,status=1,slug=slug,author_id=request.user.id,created_on=datetime.now(),updated_on=datetime.now())
-    add_industry_obj.save()
-    data['added']=True  
-    return JsonResponse(data)
+        add_industry_obj=Posts(title=title,blog_image=image,content=content,status=1,slug=slug,author_id=request.user.id,created_on=datetime.now(),updated_on=datetime.now())
+        add_industry_obj.save()
+        data['added']=True  
+        return JsonResponse(data)
 
 @login_required
 def show_user(request):

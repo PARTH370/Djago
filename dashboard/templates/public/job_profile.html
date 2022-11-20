@@ -23,7 +23,7 @@
 	<ul>
 		
 	<li>
-		{% comment %} <input type="text" id="CompaneyName" name="field1" class="field-style field-split align-left" placeholder="Companey Name" /> {% endcomment %}
+		
 		{{form.companey_name}}
 		{{form.job_Title}}
 	
@@ -68,7 +68,7 @@
 		{{form.description}}
 	</li>
 	<li>
-		<input type="button" class="btn btn-info btn-sm" value='SUBMIT' onclick="add_industry()"/>
+		<input type="button" class="btn btn-info btn-sm" value='SUBMIT' onclick="add_job()"/>
 	</li>
 	</ul>
 	</form>
@@ -118,7 +118,7 @@
 			}
 		});
 		}
-    function add_industry(){
+    function add_job(){
 		// alert($("#id_share_class_type").val());
 		
 		
